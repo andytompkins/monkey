@@ -53,20 +53,43 @@ passport.use(new CustomStrategy(function(req, done) {
   var sig = u + '.sig';
   
   var decodeSig = 'base64 -d > ' + sig;
-  exec(decodeSig, { input: req.body.password });
+  try {
+    exec(decodeSig, { input: req.body.password });
+  }
+  catch (err) {
+    log.debug("Signature decode failed");
+    return done(null, false, { message: "Invalid username or password." });
+  }
   
   audit.info("Reading authorized keys of user " + u);
   var getKeys = 'sudo su - ' + u + ' -c "cat ~/.ssh/authorized_keys"';
-  var stdout = exec(getKeys);
+  try {
+    var stdout = exec(getKeys);
+  }
+  catch (err) {
+    log.debug("Reading of authorized keys failed");
+    return done(null, false, { message: "Invalid username or password." });
+  }
   var lines = stdout.split('\n');
   if (lines.length > 0) {
     for (var i = 0; i < lines.length; i++) {
-      
       fs.writeFileSync(pub, lines[i]);
       var convert2Pkcs = 'ssh-keygen -e -f ' + pub + ' -m PKCS8 > ' + pkcs;
-      exec(convert2Pkcs);
+      try {
+        exec(convert2Pkcs);
+      }
+      catch (err) {
+        log.debug("Public key conversion to PKCS8 failed");
+        return done(null, false, { message: "Invalid username or password." });
+      }
       var verifySig = 'openssl pkeyutl -verify -pubin -inkey ' + pkcs + ' -in unlock.txt -sigfile ' + sig;
-      stdout = exec(verifySig);
+      try {
+        stdout = exec(verifySig);
+      }
+      catch (err) {
+        log.debug("Signature verification failed");
+        return done(null, false, { message: "Invalid username or password." });
+      }
       if (stdout === 'Signature Verified Successfully') {
         return done(null, u);
       }
