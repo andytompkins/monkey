@@ -3,7 +3,9 @@ extends layout
 block head
 
 block content
-  h1 Welcome
+  if isAdmin
+    a(href='/users') Admin
+  h1 SSH Key Management
   table
     thead
       tr

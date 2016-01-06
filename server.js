@@ -41,11 +41,38 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new CustomStrategy(function(req, done) {
-  log.debug("CustomStrategy");
-  var users = fs.readdirSync(home).filter(function(f) {
+var isAdmin(username) {
+  var admin = _.find(config.admins, function(user) {
+    return user === username;
+  });
+  if(!admin) {
+    return false;
+  }
+  return true;
+};
+
+var getUsername(req) {
+  var u = null;
+  if (req.user && req.user.username) {
+    u = req.user.username;
+  } else if (req.session && req.session.passport && req.session.passport.user && req.session.passport.user.username) {
+    u = req.session.passport.user.username;
+  }
+  return u;
+};
+
+var getUsers = function() {
+  return fs.readdirSync(home).filter(function(f) {
     return fs.statSync(path.join(home, f)).isDirectory();
   });
+};
+
+passport.use(new CustomStrategy(function(req, done) {
+  log.debug("CustomStrategy");
+  //var users = fs.readdirSync(home).filter(function(f) {
+  //  return fs.statSync(path.join(home, f)).isDirectory();
+  //});
+  var users = getUsers();
   var u = _.find(users, function(user) {
     return user === req.body.username;
   });
@@ -142,12 +169,7 @@ router.get('/', function(req, res) {
   //console.dir(req.session);
   //var u = req.session.passport.user.username;
   
-  var u = null;
-  if (req.user && req.user.username) {
-    u = req.user.username;
-  } else if (req.session && req.session.passport && req.session.passport.user && req.session.passport.user.username) {
-    u = req.session.passport.user.username;
-  }
+  var u = getUsername(req);
   
   var keys = [];
   
@@ -169,22 +191,6 @@ router.get('/', function(req, res) {
     for (var i = 0; i < lines.length; i++) {
       if (lines[i].trim().length === 0) { continue; }
       
-      /*
-      var getFingerprint = 'ssh-keygen -lf /dev/stdin';
-      try {
-        stdout = exec(getFingerprint, { stdin: lines[i] });
-      }
-      catch (err) {
-        console.log(err.message);
-        console.log(err.stack);
-        console.log(getFingerprint);
-        console.log(err.stdout.toString());
-        log.debug("Fingerprinting of key failed");
-        //
-      }
-      var fingerprint = stdout.toString();
-      */
-      
       var parts = lines[i].split(/\s/);
       //console.dir(parts);
       var keyPrint = fingerprint(parts[1]);
@@ -198,7 +204,7 @@ router.get('/', function(req, res) {
     
   }
   console.dir(keys);
-	res.render('index', { "keys": keys });
+	res.render('index', { "keys": keys, "isAdmin": isAdmin(u) });
 });
 
 router.get('/login', function(req, res) {
@@ -213,6 +219,15 @@ router.post('/login', passport.authenticate('custom', {
   log.debug('processing login');
 });
 
+router.get('/users', function(req, res) {
+  var u = getUsername(req);
+  var admin = isAdmin(u);
+  if (!admin) {
+    return res.redirect('/');
+  }
+  var users = getUsers();
+  res.render('users', { "users": users });
+});
 
 app.use(router);
 
