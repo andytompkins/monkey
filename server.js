@@ -15,7 +15,9 @@ var session = require('express-session');
 
 
 var audit = logManager.createSimpleFileLogger('audit.log');
+audit.setLevel('info');
 var log = logManager.createSimpleLogger();
+log.setLevel('debug');
 
 var configFile = 'settings.json';
 var config = JSON.parse(fs.readFileSync(configFile));
