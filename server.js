@@ -127,8 +127,9 @@ app.set('views', __dirname + '/views');
 router.get('/', function(req, res) {
   log.debug('rendering index');
   
-  var u = req.body.username;
+  var u = req.user;
   
+  log.debug("got username " + u + " from passport");
   audit.info("Reading authorized keys of user " + u);
   var getKeys = 'sudo su - ' + u + ' -c "cat ~/.ssh/authorized_keys"';
   try {
