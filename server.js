@@ -88,13 +88,14 @@ passport.use(new CustomStrategy(function(req, done) {
         stdout = exec(verifySig);
       }
       catch (err) {
-        
-        if (err.status === 1 && err.stdout.toString() === 'Signature Verified Successfully') {
+        stdout = err.stdout.toString();
+        if (err.status === 1 &&  stdout === 'Signature Verified Successfully') {
           return done(null, u);
         }
         
         console.dir(err);
         log.debug("Signature verification failed");
+        log.debug("Output: " + stdout);
         log.debug("Error message: " + err.message);
         log.debug("Stack: " + err.stack);
         
