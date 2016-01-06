@@ -166,6 +166,7 @@ router.get('/', function(req, res) {
     var lines = stdout.toString().split('\n');
     //console.dir(lines);
     for (var i = 0; i < lines.length; i++) {
+      if (lines[i].trim().length === 0) { continue; }
       var parts = lines[i].split(/\s/);
       //console.dir(parts);
       keys.push({
