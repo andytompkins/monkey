@@ -1,12 +1,12 @@
 {
   "port": 3000,
-  "home": "/Users",
+  "home": "/home",
   "groups": {
     "ADDERS": [ 
-                "at", 
+                "atompkins", 
                 "jlittleton"
               ],
     "DELETERS": [],
-    "EDITORS": [ "at", "jlittleton" ]
+    "EDITORS": [ "atompkins", "jlittleton" ]
   }
 }
