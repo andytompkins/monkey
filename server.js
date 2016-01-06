@@ -120,11 +120,11 @@ passport.use(new CustomStrategy(function(req, done) {
 }));
 
 passport.serializeUser(function(user, done) {
-  log.debug("serializeUser: " + user);
+  //log.debug("serializeUser: " + user);
   done(null, user);
 });
 passport.deserializeUser(function(user, done) {
-  log.debug("deserializeUser: " + user);
+  //log.debug("deserializeUser: " + user);
   done(null, user);
 });
 
@@ -136,9 +136,9 @@ app.set('views', __dirname + '/views');
 router.get('/', function(req, res) {
   log.debug('rendering index');
   
-  console.dir(req.user);
-  console.log("==========");
-  console.dir(req.session);
+  //console.dir(req.user);
+  //console.log("==========");
+  //console.dir(req.session);
   //var u = req.session.passport.user.username;
   
   var u = null;
@@ -162,10 +162,12 @@ router.get('/', function(req, res) {
       log.debug("Reading of authorized keys failed");
       //
     }
+    log.debug("stdout is " + stdout.toString());
     var lines = stdout.toString().split('\n');
-    
+    console.dir(lines);
     for (var i = 0; i < lines.length; i++) {
       var parts = lines[i].split(/\s/);
+      console.dir(parts);
       keys.push({
         type: parts[0],
         key: parts[1],
