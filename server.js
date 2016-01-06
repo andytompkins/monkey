@@ -70,7 +70,7 @@ passport.use(new CustomStrategy(function(req, done) {
     log.debug("Reading of authorized keys failed");
     return done(null, false, { message: "Invalid username or password." });
   }
-  var lines = stdout.split('\n');
+  var lines = stdout.toString().split('\n');
   if (lines.length > 0) {
     for (var i = 0; i < lines.length; i++) {
       fs.writeFileSync(pub, lines[i]);
