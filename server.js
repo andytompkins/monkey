@@ -162,12 +162,12 @@ router.get('/', function(req, res) {
       log.debug("Reading of authorized keys failed");
       //
     }
-    log.debug("stdout is " + stdout.toString());
+    //log.debug("stdout is " + stdout.toString());
     var lines = stdout.toString().split('\n');
-    console.dir(lines);
+    //console.dir(lines);
     for (var i = 0; i < lines.length; i++) {
       var parts = lines[i].split(/\s/);
-      console.dir(parts);
+      //console.dir(parts);
       keys.push({
         type: parts[0],
         key: parts[1],
@@ -176,7 +176,7 @@ router.get('/', function(req, res) {
     }
     
   }
-  
+  console.dir(keys);
 	res.render('index', { "keys": keys });
 });
 
