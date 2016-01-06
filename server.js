@@ -127,7 +127,10 @@ app.set('views', __dirname + '/views');
 router.get('/', function(req, res) {
   log.debug('rendering index');
   
+  console.dir(req);
+  
   var u = req.user;
+  console.dir(u);
   
   log.debug("got username " + u + " from passport");
   audit.info("Reading authorized keys of user " + u);
