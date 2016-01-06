@@ -22,6 +22,7 @@
     "moment": "^2.10.6",
     "passport": "^0.3.2",
     "passport-custom": "^1.0.5",
+    "session-file-store": "0.0.24",
     "simple-node-logger": "^0.92.21",
     "urlencode": "^1.1.0"
   }

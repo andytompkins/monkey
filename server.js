@@ -12,6 +12,7 @@ var urlencode = require('urlencode');
 var json = require('json-middleware').middleware();
 //var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 
 
 var audit = logManager.createSimpleFileLogger('audit.log');
@@ -29,7 +30,13 @@ app.use(compression());
 //app.use(cookieParser);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({ secret: 'chattymonkey', resave: false, saveUninitialized: false, cookie: { maxAge: 3600000 } }));
+app.use(session({
+  secret: 'chattymonkey',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 3600000 },
+  store: new FileStore()
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
