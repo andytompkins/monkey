@@ -113,9 +113,11 @@ passport.use(new CustomStrategy(function(req, done) {
 }));
 
 passport.serializeUser(function(user, done) {
+  log.debug("serializeUser: " + user);
   done(null, user);
 });
 passport.deserializeUser(function(user, done) {
+  log.debug("deserializeUser: " + user);
   done(null, user);
 });
 
