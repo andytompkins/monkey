@@ -4,8 +4,11 @@ block head
 
 block content
   div.loginform
+    p Run this command to create a signature, and copy/paste as your password
+    pre echo "ClearCollateral" | openssl pkeyutl -sign -inkey ~/.ssh/id_rsa | base64 
+    p Note: if your are not usign the default SSH identity you will need to substitue your identity file (private key) for the id_rsa in the above command
     form.form-signin(action="/login", method="post", id="loginform")
       input.input-block-level(type="text", name="username", placeholder="Unix username")
-      input.input-block-level(type="password", name="password", placeholder="Public key")
+      input.input-block-level(type="password", name="password", placeholder="Signature")
       input(type="submit", class="btn btn-primary btn-block btn-large", value="Log In")
     
