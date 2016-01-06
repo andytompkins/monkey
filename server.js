@@ -82,21 +82,25 @@ passport.use(new CustomStrategy(function(req, done) {
         log.debug("Public key conversion to PKCS8 failed");
         return done(null, false, { message: "Invalid username or password." });
       }
+      // openssl is weird, and returns a status code of 1 on success so this will always throw
       var verifySig = 'openssl pkeyutl -verify -pubin -inkey ' + pkcs + ' -in unlock.txt -sigfile ' + sig;
       try {
         stdout = exec(verifySig);
       }
       catch (err) {
+        
+        if (err.status === 1 && err.stdout.toString() === 'Signature Verified Successfully') {
+          return done(null, u);
+        }
+        
         console.dir(err);
         log.debug("Signature verification failed");
         log.debug("Error message: " + err.message);
         log.debug("Stack: " + err.stack);
-        log.debug("Output: " + stdout);
+        
         return done(null, false, { message: "Invalid username or password." });
       }
-      if (stdout === 'Signature Verified Successfully') {
-        return done(null, u);
-      }
+      
     }
     return done(null, false, { message: "Invalid username or password." });
   } else {
