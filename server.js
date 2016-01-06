@@ -13,6 +13,7 @@ var json = require('json-middleware').middleware();
 //var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
+var fingerprint = require('ssh-fingerprint');
 
 
 var audit = logManager.createSimpleFileLogger('audit.log');
@@ -168,6 +169,7 @@ router.get('/', function(req, res) {
     for (var i = 0; i < lines.length; i++) {
       if (lines[i].trim().length === 0) { continue; }
       
+      /*
       var getFingerprint = 'ssh-keygen -lf /dev/stdin';
       try {
         stdout = exec(getFingerprint, { stdin: lines[i] });
@@ -181,13 +183,16 @@ router.get('/', function(req, res) {
         //
       }
       var fingerprint = stdout.toString();
-      var parts = fingerprint.split(/\s/);
+      */
+      
+      var parts = lines[i].split(/\s/);
       //console.dir(parts);
+      var keyPrint = fingerprint(parts[1]);
+      
       keys.push({
-        type: parts[3],
-        key: parts[1],
-        label: parts[2],
-        size: parts[0]
+        type: parts[0],
+        key: keyPrint,
+        label: parts[2]
       });
     }
     
