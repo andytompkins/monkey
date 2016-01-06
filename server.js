@@ -91,11 +91,12 @@ app.set('views', __dirname + '/views');
 
 
 router.get('/', function(req, res) {
+  log.debug('rendering index');
 	res.render('index', {});
 });
 
 router.get('/login', function(req, res) {
-  console.log("login get");
+  log.debug('rendering login');
   res.render('login', {});
 });
 
@@ -103,7 +104,7 @@ router.post('/login', passport.authenticate('custom', {
   successRedirect: '/',
   failureRedirect: '/login'
 }), function(req, res) {
-  console.log("login post");
+  log.debug('processing login');
 });
 
 
@@ -111,7 +112,7 @@ app.use(router);
 
 var port = process.env.PORT || config.port || 3000;
 var server = app.listen(port, function() {
-  console.log("monkey listening on port " + port);
+  log.info("monkey listening on port " + port);
 });
 
 
