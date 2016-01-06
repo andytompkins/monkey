@@ -129,6 +129,9 @@ app.set('views', __dirname + '/views');
 router.get('/', function(req, res) {
   log.debug('rendering index');
   
+  console.dir(req.user);
+  console.log("==========");
+  console.dir(req.session);
   var u = req.session.passport.user.username;
   var keys = [];
   
