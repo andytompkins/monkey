@@ -90,7 +90,7 @@ passport.use(new CustomStrategy(function(req, done) {
       catch (err) {
         stdout = err.stdout.toString();
         if (err.status === 1 && stdout.trim() === 'Signature Verified Successfully') {
-          return done(null, u);
+          return done(null, { 'username': u });
         }
         
         console.dir(err);
