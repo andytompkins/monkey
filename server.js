@@ -167,12 +167,23 @@ router.get('/', function(req, res) {
     //console.dir(lines);
     for (var i = 0; i < lines.length; i++) {
       if (lines[i].trim().length === 0) { continue; }
-      var parts = lines[i].split(/\s/);
+      
+      var getFingerprint = 'ssh-keygen -lf /dev/stdin <<<"' + lines[i] + '"';
+      try {
+        stdout = exec(getFingerprint);
+      }
+      catch (err) {
+        log.debug("Fingerprinting of key failed");
+        //
+      }
+      var fingerprint = stdout.toString();
+      var parts = fingerprint.split(/\s/);
       //console.dir(parts);
       keys.push({
-        type: parts[0],
+        type: parts[3],
         key: parts[1],
         label: parts[2]
+        size: parts[0]
       });
     }
     
