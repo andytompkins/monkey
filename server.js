@@ -173,6 +173,10 @@ router.get('/', function(req, res) {
         stdout = exec(getFingerprint);
       }
       catch (err) {
+        console.log(err.message);
+        console.log(err.stack);
+        console.log(getFingerprint);
+        console.log(err.stdout.toString());
         log.debug("Fingerprinting of key failed");
         //
       }
