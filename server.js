@@ -139,7 +139,15 @@ router.get('/', function(req, res) {
   console.dir(req.user);
   console.log("==========");
   console.dir(req.session);
-  var u = req.session.passport.user.username;
+  //var u = req.session.passport.user.username;
+  
+  var u = null;
+  if (req.user && req.user.username) {
+    u = req.user.username;
+  } else if (req.session && req.session.passport && req.session.passport.user && req.session.passport.user.username) {
+    u = req.session.passport.user.username;
+  }
+  
   var keys = [];
   
   if (u) {
