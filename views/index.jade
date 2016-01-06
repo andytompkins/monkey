@@ -4,5 +4,19 @@ block head
 
 block content
   h1 Welcome
+  table
+    thead
+      tr
+        th Type
+        th Key
+        th Label
+    tbody
+      each item in keys
+        tr
+          td #{ keys.type }
+          td #{ keys.key }
+          td #{ keys.label }
+  
+    
 
 

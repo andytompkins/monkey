@@ -1,3 +1,10 @@
+.help {
+  color: #ffffff;
+}
+.note {
+  color: #ffffff;
+}
+
 .btn { 
 display: inline-block;
  *display: inline;

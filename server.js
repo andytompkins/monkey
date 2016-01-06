@@ -126,11 +126,36 @@ app.set('views', __dirname + '/views');
 
 router.get('/', function(req, res) {
   log.debug('rendering index');
-	res.render('index', {});
+  
+  var u = req.body.username;
+  
+  audit.info("Reading authorized keys of user " + u);
+  var getKeys = 'sudo su - ' + u + ' -c "cat ~/.ssh/authorized_keys"';
+  try {
+    var stdout = exec(getKeys);
+  }
+  catch (err) {
+    log.debug("Reading of authorized keys failed");
+    //
+  }
+  var lines = stdout.toString().split('\n');
+  var keys = [];
+  for (var i = 0; i < lines.length; i++) {
+    var parts = lines[i].split(/\s/);
+    keys.push({
+      type: parts[0],
+      key: parts[1],
+      label: parts[2]
+    });
+  }
+  
+	res.render('index', { "keys": keys });
 });
 
 router.get('/login', function(req, res) {
   log.debug('rendering login');
+  
+  
   res.render('login', {});
 });
 
