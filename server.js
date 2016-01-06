@@ -182,7 +182,7 @@ router.get('/', function(req, res) {
       keys.push({
         type: parts[3],
         key: parts[1],
-        label: parts[2]
+        label: parts[2],
         size: parts[0]
       });
     }
