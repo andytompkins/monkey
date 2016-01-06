@@ -41,7 +41,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-var isAdmin(username) {
+var isAdmin = function(username) {
   var admin = _.find(config.admins, function(user) {
     return user === username;
   });
@@ -51,7 +51,7 @@ var isAdmin(username) {
   return true;
 };
 
-var getUsername(req) {
+var getUsername = function(req) {
   var u = null;
   if (req.user && req.user.username) {
     u = req.user.username;
