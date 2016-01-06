@@ -168,9 +168,9 @@ router.get('/', function(req, res) {
     for (var i = 0; i < lines.length; i++) {
       if (lines[i].trim().length === 0) { continue; }
       
-      var getFingerprint = 'ssh-keygen -lf /dev/stdin <<<"' + lines[i] + '"';
+      var getFingerprint = 'ssh-keygen -lf /dev/stdin';
       try {
-        stdout = exec(getFingerprint);
+        stdout = exec(getFingerprint, { stdin: lines[i] });
       }
       catch (err) {
         console.log(err.message);
