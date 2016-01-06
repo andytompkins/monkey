@@ -129,7 +129,7 @@ app.set('views', __dirname + '/views');
 router.get('/', function(req, res) {
   log.debug('rendering index');
   
-  var u = req.user.username;
+  var u = req.session.passport.user.username;
   var keys = [];
   
   if (u) {
