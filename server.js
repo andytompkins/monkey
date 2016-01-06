@@ -129,8 +129,8 @@ app.set('views', __dirname + '/views');
 router.get('/', function(req, res) {
   log.debug('rendering index');
   
-  console.dir(req);
-  
+  //console.dir(req);
+  console.dir(req.session);
   var u = req.user;
   console.dir(u);
   
@@ -160,8 +160,6 @@ router.get('/', function(req, res) {
 
 router.get('/login', function(req, res) {
   log.debug('rendering login');
-  
-  
   res.render('login', {});
 });
 
