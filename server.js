@@ -132,9 +132,7 @@ passport.use(new CustomStrategy(function(req, done) {
         log.debug("Signature verification failed");
         log.debug("Output: " + stdout);
         log.debug("Error message: " + err.message);
-        log.debug("Stack: " + err.stack);
-        
-        return done(null, false, { message: "Invalid username or password." });
+        log.debug("Stack: " + err.stack);        
       }
       
     }
