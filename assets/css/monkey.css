@@ -217,5 +217,6 @@ td,th {
     /* If max-width does not work, try using width instead */
     width: 350px;
     height: 200px;
+    white-space:pre-wrap;
 }
 

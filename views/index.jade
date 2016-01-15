@@ -19,7 +19,7 @@ block content
         each item in keys
           tr
             td #{ item.type }
-            td(data-toggle="tooltip", title="#{ item.key }") #{ item.fingerprint }
+            td(data-toggle="tooltip", data-placement="bottom", title="#{ item.key }") #{ item.fingerprint }
             td #{ item.label }
             td
               form.form-editkey(action="/forms/editkey", method="post", id="editform")
