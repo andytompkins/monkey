@@ -5,6 +5,8 @@ body {
 .logo {
   width: 150px;
   height: 150px;
+  padding: 5px;
+  float: left;
 }
 
 .help {
@@ -128,7 +130,7 @@ html
  }
 
 .loginform{ 
- width: 700px;
+ width: 850px;
  height:auto;
  min-height:300px;
  margin:130px auto;
