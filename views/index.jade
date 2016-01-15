@@ -11,7 +11,7 @@ block content
       thead
         tr
           th Type
-          th Key
+          th Key Fingerprint
           th Label
           th
           th
@@ -19,14 +19,20 @@ block content
         each item in keys
           tr
             td #{ item.type }
-            td #{ item.key }
+            td #{ item.fingerprint }
             td #{ item.label }
             td
               form.form-editkey(action="/forms/editkey", method="post", id="editform")
+                input(type="hidden", name="type", value="#{ item.type }")
+                input(type="hidden", name="key", value="#{ item.key }")
+                input(type="hidden", name="label", value="#{ item.label }")
                 button(type="submit", class="btn btn-primary", value="Edit Key") Edit Key
                   span.glyphicon.glyphicon-edit.icon-button
             td
               form.form-deletekey(action="/forms/deletekey", method="post", id="deleteform")
+                input(type="hidden", name="type", value="#{ item.type }")
+                input(type="hidden", name="key", value="#{ item.key }")
+                input(type="hidden", name="label", value="#{ item.label }")
                 button(type="submit", class="btn btn-primary", value="Delete Key") Delete Key
                   span.glyphicon.glyphicon-trash.icon-button
     form.form-addkey(action="/forms/addkey", method="post", id="addform")

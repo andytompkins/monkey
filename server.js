@@ -195,8 +195,9 @@ router.get('/', function(req, res) {
       
       keys.push({
         type: parts[0],
-        key: keyPrint,
-        label: parts[2]
+        key: parts[1],
+        label: parts[2],
+        fingerprint: keyPrint
       });
     }
     
@@ -231,6 +232,7 @@ router.post('/forms/addkey', function(req, res) {
   res.render('addkeyform', {});
 });
 router.post('/forms/editkey', function(req, res) {
+  console.dir(req.body);
   res.render('editkeyform', {});
 });
 router.post('/forms/deletekey', function(req, res) {

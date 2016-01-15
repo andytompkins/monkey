@@ -4,8 +4,9 @@ block head
 
 block content
   
-  div.addkeyform
-    form.form-addkey(action="/addkey", method="post", id="addkeyform")
-      input#publickey.input-block-level(type="text", name="publickey", placeholder="SSH public key")
-      input(type="submit", class="btn btn-primary btn-block btn-large", value="Add SSH Key")
+  div.deletekeyform
+    form.form-deletekey(action="/deletekey", method="post", id="deletekeyform")
+      p.confirm Are you sure you want to remove the following SSH key?
+      input#publickey(type="text", name="publickey", readonly)
+      input(type="submit", class="btn btn-primary btn-block btn-large", value="Delete SSH Key")
     

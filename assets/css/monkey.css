@@ -144,10 +144,10 @@ html
  -webkit-border-radius:8px;
  font-size:14px;
 }
-.addkeyform{
+.addkeyform,.editkeyform,.deletekeyform{
   width: 600px;
   height:auto;
-  min-height:300px;
+  min-height:100px;
   margin:130px auto;
   padding: 40px;
   font-family: 'Open Sans', sans-serif;
