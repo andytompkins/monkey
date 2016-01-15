@@ -5,19 +5,20 @@ block head
 block content
   if isAdmin
     a(href='/users') Admin
-  h1 SSH Key Management
-  table
-    thead
-      tr
-        th Type
-        th Key
-        th Label
-    tbody
-      each item in keys
+  div.keys
+    h1 SSH Key Management
+    table
+      thead
         tr
-          td #{ item.type }
-          td #{ item.key }
-          td #{ item.label }
+          th Type
+          th Key
+          th Label
+      tbody
+        each item in keys
+          tr
+            td #{ item.type }
+            td #{ item.key }
+            td #{ item.label }
     
 
 
