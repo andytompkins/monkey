@@ -3,8 +3,9 @@ extends layout
 block head
 
 block content
-  img.logo(src="/images/monkey.png")
+  
   div.loginform
+    img.logo(src="/images/monkey.png")
     p.help Run this command to create a signature, and copy/paste as your password
     pre echo "ClearCollateral" | openssl pkeyutl -sign -inkey ~/.ssh/id_rsa | base64 
     p.note Note: if your are not using the default SSH identity you will need to substitute your identity file (private key) for the id_rsa in the above command
