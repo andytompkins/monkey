@@ -144,7 +144,21 @@ html
  -webkit-border-radius:8px;
  font-size:14px;
 }
-
+.addkeyform{
+  width: 600px;
+  height:auto;
+  min-height:300px;
+  margin:130px auto;
+  padding: 40px;
+  font-family: 'Open Sans', sans-serif;
+  background: #999999;
+  border-radius:8px;
+  -moz-border-radius:8px;
+  -ms-border-radius:8px;
+  -o-border-radius:8px;
+  -webkit-border-radius:8px;
+  font-size:14px;
+}
 
 
 #username,#password,#cpword { 
