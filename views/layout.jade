@@ -9,3 +9,8 @@ html
   body
     .content
       block content
+    script(type='text/javascript', src='/js/bootstrap.js')
+    script(type='text/javascript').
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+      });
