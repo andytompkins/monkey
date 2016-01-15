@@ -193,4 +193,9 @@ td,th {
   margin-left: 10px;
 }
 
+.icon-button {
+  float: left;
+  padding-right: 5px;
+}
+
 

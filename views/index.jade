@@ -22,12 +22,14 @@ block content
             td #{ item.key }
             td #{ item.label }
             td
-              span.glyphicon.glyphicon-edit
+              form.form-editkey(action="/editkey", method="post", id="editform")
+                button(type="submit", class="btn btn-primary", value="Edit Key") Edit Key
+                  span.glyphicon.glyphicon-edit.icon-button
             td
-              span.glyphicon.glyphicon-delete
+              span.glyphicon.glyphicon-trash
     form.form-addkey(action="/addkey", method="post", id="addform")
       button(type="submit", class="btn btn-primary", value="Add Key") Add Key
-        span.glyphicon.glyphicon-plus
+        span.glyphicon.glyphicon-plus.icon-button
         
     
 
