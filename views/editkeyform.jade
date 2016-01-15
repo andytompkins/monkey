@@ -1,0 +1,11 @@
+extends layout
+
+block head
+
+block content
+  
+  div.addkeyform
+    form.form-addkey(action="/addkey", method="post", id="addkeyform")
+      input#publickey.input-block-level(type="text", name="publickey", placeholder="SSH public key")
+      input(type="submit", class="btn btn-primary btn-block btn-large", value="Add SSH Key")
+    
