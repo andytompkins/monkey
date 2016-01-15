@@ -218,5 +218,6 @@ td,th {
     width: 350px;
     height: 200px;
     white-space:pre-wrap;
+    overflow: wrap;
 }
 
