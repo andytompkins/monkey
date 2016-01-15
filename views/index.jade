@@ -13,12 +13,19 @@ block content
           th Type
           th Key
           th Label
+          th
+          th
       tbody
         each item in keys
           tr
             td #{ item.type }
             td #{ item.key }
             td #{ item.label }
+            td span.glyphicons.glyphicons-edit
+            td span.glyphicons.glyphicons-delete
+    form.form-addkey(action="/addkey", method="post", id="addform")
+      input(type="submit", class="btn btn-primary", value="Add Key")
+        span.glyphicons.glyphicons-plus
     
 
 
