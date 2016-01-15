@@ -8,7 +8,7 @@ block content
     pre echo "ClearCollateral" | openssl pkeyutl -sign -inkey ~/.ssh/id_rsa | base64 
     p.note Note: if your are not using the default SSH identity you will need to substitute your identity file (private key) for the id_rsa in the above command
     form.form-signin(action="/login", method="post", id="loginform")
-      input.input-block-level(type="text", name="username", placeholder="Unix username")
-      input.input-block-level(type="password", name="password", placeholder="Signature")
+      input#username.input-block-level(type="text", name="username", placeholder="Unix username")
+      input#password.input-block-level(type="password", name="password", placeholder="Signature")
       input(type="submit", class="btn btn-primary btn-block btn-large", value="Log In")
     
