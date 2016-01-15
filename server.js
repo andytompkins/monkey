@@ -227,6 +227,18 @@ router.get('/users', function(req, res) {
   res.render('users', { "users": users });
 });
 
+router.post('/forms/addkey', function(req, res) {
+  res.render('addkeyform', {});
+});
+router.post('/forms/editkey', function(req, res) {
+  res.render('editkeyform', {});
+});
+router.post('/forms/deletekey', function(req, res) {
+  res.render('deletekeyform', {});
+});
+
+
+
 app.use(router);
 
 var port = process.env.PORT || config.port || 3000;
