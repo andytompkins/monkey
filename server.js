@@ -202,7 +202,7 @@ router.get('/', function(req, res) {
     }
     
   }
-  console.dir(keys);
+  //console.dir(keys);
 	res.render('index', { "keys": keys, "isAdmin": isAdmin(u) });
 });
 
@@ -233,10 +233,12 @@ router.post('/forms/addkey', function(req, res) {
 });
 router.post('/forms/editkey', function(req, res) {
   console.dir(req.body);
-  res.render('editkeyform', {});
+  var fullKey = req.body.type + " " + req.body.key + " " + req.body.label;
+  res.render('editkeyform', { "fullKey": fullKey });
 });
 router.post('/forms/deletekey', function(req, res) {
-  res.render('deletekeyform', {});
+  var fullKey = req.body.type + " " + req.body.key + " " + req.body.label;
+  res.render('deletekeyform', { "fullKey": fullKey });
 });
 
 
