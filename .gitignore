@@ -1,7 +1,6 @@
 node_modules/
 audit.log
-semantic/
-semantic.json
+assets/semantic/
 *.b64
 *.hsig
 *.sig

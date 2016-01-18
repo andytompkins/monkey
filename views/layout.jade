@@ -3,15 +3,36 @@ html
   head
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title monkey
-    link(type='text/css', rel='stylesheet', href='/css/semantic.css')
+    link(type='text/css', rel='stylesheet', href='/semantic/dist/semantic.min.css')
     link(rel='stylesheet', href='/css/monkey.css')
     block head
   body
     .content
       block content
     script(type='text/javascript', src='/js/jquery.js')
-    script(type='text/javascript', src='/js/semantic.js')
+    script(type='text/javascript', src='/semantic/dist/semantic.min.js')
     script(type='text/javascript').
       $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('.ui.form').form({
+          fields: {
+            username: {
+              identifier: 'username',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your unix username'
+                }
+              ]
+            },
+            password: {
+              identifier: 'password',
+              rules: [
+                {
+                  type: 'empty',
+                  prompt: 'Please enter your computed signature'
+                }
+              ]
+            }
+          }
+        }); 
       });
