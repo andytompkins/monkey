@@ -5,7 +5,7 @@ block append head
 block append content
   div.keys
     h1 SSH Key Management
-    table
+    table.ui.celled.table
       thead
         tr
           th Type
@@ -17,25 +17,29 @@ block append content
         each item in keys
           tr
             td #{ item.type }
-            td(data-toggle="tooltip", data-placement="bottom", title="#{ item.key }") #{ item.fingerprint }
+            td.link(data-variation="very wide", data-content="#{ item.key }") #{ item.fingerprint }
             td #{ item.label }
             td
               form.form-editkey(action="/forms/editkey", method="post", id="editform")
                 input(type="hidden", name="type", value="#{ item.type }")
                 input(type="hidden", name="key", value="#{ item.key }")
                 input(type="hidden", name="label", value="#{ item.label }")
-                button(type="submit", class="btn btn-primary", value="Edit Key") Edit Key
-                  span.glyphicon.glyphicon-edit.icon-button
+                button.ui.button(type="submit", value="Edit Key") Edit Key
+                  i.edit.icon
             td
               form.form-deletekey(action="/forms/deletekey", method="post", id="deleteform")
                 input(type="hidden", name="type", value="#{ item.type }")
                 input(type="hidden", name="key", value="#{ item.key }")
                 input(type="hidden", name="label", value="#{ item.label }")
-                button(type="submit", class="btn btn-primary", value="Delete Key") Delete Key
-                  span.glyphicon.glyphicon-trash.icon-button
-    form.form-addkey(action="/forms/addkey", method="post", id="addform")
-      button(type="submit", class="btn btn-primary", value="Add Key") Add Key
-        span.glyphicon.glyphicon-plus.icon-button
+                button.ui.button(type="submit", value="Delete Key") Delete Key
+                  i.trash.icon
+      tfoot
+        tr
+          th(colspan="5")
+            div.ui.right.floated
+              form.form-addkey(action="/forms/addkey", method="post", id="addform")
+                button.ui.button(type="submit", value="Add Key") Add Key
+                  i.plus.icon
         
     
 
