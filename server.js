@@ -240,7 +240,9 @@ router.post('/forms/addkey', function(req, res) {
   res.render('addkeyform', data);
 });
 router.post('/forms/editkey', function(req, res) {
-  console.dir(req.body);
+  data.type = req.body.type;
+  data.key = req.body.key;
+  data.label = req.body.label;
   data.fullKey = req.body.type + " " + req.body.key + " " + req.body.label;
   res.render('editkeyform', data);
 });
