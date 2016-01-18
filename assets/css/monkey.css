@@ -25,6 +25,9 @@ body > .grid.login {
   margin-top: -100px;
 }
 
+.keypopup {
+  word-wrap: break-word;
+}
 
 /*
 .column {
