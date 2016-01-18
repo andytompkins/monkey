@@ -22,7 +22,7 @@ block append content
           td.popup.fingerprint(data-variation="very wide huge", data-html="<div class='keypopup'>#{ item.key }</div>") #{ item.fingerprint }
           td #{ item.label }
           td
-            form.form-editkey(action="/forms/editkey", method="post", id="editform")
+            form.ui.form.form-editkey(action="/forms/editkey", method="post", id="editform")
               input(type="hidden", name="type", value="#{ item.type }")
               input(type="hidden", name="key", value="#{ item.key }")
               input(type="hidden", name="label", value="#{ item.label }")
@@ -30,19 +30,21 @@ block append content
                 i.edit.icon
                 | Edit Key
           td
-            form.form-deletekey(action="/forms/deletekey", method="post", id="deleteform")
+            form.ui.form.form-deletekey(action="/forms/deletekey", method="post", id="deleteform")
               input(type="hidden", name="type", value="#{ item.type }")
               input(type="hidden", name="key", value="#{ item.key }")
               input(type="hidden", name="label", value="#{ item.label }")
-              button.ui.button(type="submit", value="Delete Key") Delete Key
+              button.ui.button(type="submit", value="Delete Key")
                 i.trash.icon
+                | Delete Key
     tfoot
       tr
         th(colspan="5")
           div.ui.right.floated
-            form.form-addkey(action="/forms/addkey", method="post", id="addform")
-              button.ui.button(type="submit", value="Add Key") Add Key
+            form.ui.form.form-addkey(action="/forms/addkey", method="post", id="addform")
+              button.ui.button(type="submit", value="Add Key")
                 i.plus.icon
+                | Add Key
 
 block append scripts
   script(type='text/javascript').
