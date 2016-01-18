@@ -3,45 +3,45 @@ extends layout-header
 block append head
 
 block append content
-  div.keys
+  div.ui.center.aligned
     h1.ui.center.aligned.header
       i.privacy.icon
       div.content SSH Key Management
-    table.ui.celled.table
-      thead
+  table.ui.celled.table
+    thead
+      tr
+        th Type
+        th Key Fingerprint
+        th Label
+        th
+        th
+    tbody
+      each item in keys
         tr
-          th Type
-          th Key Fingerprint
-          th Label
-          th
-          th
-      tbody
-        each item in keys
-          tr
-            td #{ item.type }
-            td.popup.fingerprint(data-variation="very wide huge", data-html="<div class='keypopup'>#{ item.key }</div>") #{ item.fingerprint }
-            td #{ item.label }
-            td
-              form.form-editkey(action="/forms/editkey", method="post", id="editform")
-                input(type="hidden", name="type", value="#{ item.type }")
-                input(type="hidden", name="key", value="#{ item.key }")
-                input(type="hidden", name="label", value="#{ item.label }")
-                button.ui.button(type="submit", value="Edit Key") Edit Key
-                  i.edit.icon
-            td
-              form.form-deletekey(action="/forms/deletekey", method="post", id="deleteform")
-                input(type="hidden", name="type", value="#{ item.type }")
-                input(type="hidden", name="key", value="#{ item.key }")
-                input(type="hidden", name="label", value="#{ item.label }")
-                button.ui.button(type="submit", value="Delete Key") Delete Key
-                  i.trash.icon
-      tfoot
-        tr
-          th(colspan="5")
-            div.ui.right.floated
-              form.form-addkey(action="/forms/addkey", method="post", id="addform")
-                button.ui.button(type="submit", value="Add Key") Add Key
-                  i.plus.icon
+          td #{ item.type }
+          td.popup.fingerprint(data-variation="very wide huge", data-html="<div class='keypopup'>#{ item.key }</div>") #{ item.fingerprint }
+          td #{ item.label }
+          td
+            form.form-editkey(action="/forms/editkey", method="post", id="editform")
+              input(type="hidden", name="type", value="#{ item.type }")
+              input(type="hidden", name="key", value="#{ item.key }")
+              input(type="hidden", name="label", value="#{ item.label }")
+              button.ui.button(type="submit", value="Edit Key") Edit Key
+                i.edit.icon
+          td
+            form.form-deletekey(action="/forms/deletekey", method="post", id="deleteform")
+              input(type="hidden", name="type", value="#{ item.type }")
+              input(type="hidden", name="key", value="#{ item.key }")
+              input(type="hidden", name="label", value="#{ item.label }")
+              button.ui.button(type="submit", value="Delete Key") Delete Key
+                i.trash.icon
+    tfoot
+      tr
+        th(colspan="5")
+          div.ui.right.floated
+            form.form-addkey(action="/forms/addkey", method="post", id="addform")
+              button.ui.button(type="submit", value="Add Key") Add Key
+                i.plus.icon
 
 block append scripts
   script(type='text/javascript').
