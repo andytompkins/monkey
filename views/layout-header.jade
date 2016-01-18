@@ -5,7 +5,7 @@ block append content
     div.inverted.grey.row
       div.ten.wide.column
       div.two.wide.column
-        div.ui.inline.dropdown
+        div.ui.inline.dropdown.header
           div.text #{ username }
           i.dropdown.icon
           div.menu
@@ -14,6 +14,12 @@ block append content
                 a(href='/users') Admin
             div.item
               a(href='/logout') Log out
+
+block append scripts
+  script(type='text/javascript').
+    $(document).ready(function(){
+      $('.ui.dropdown.header').dropdown(); 
+    });
 
         
 
