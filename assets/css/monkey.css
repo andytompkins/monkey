@@ -13,7 +13,7 @@ body {
   
 }
 
-body > .grid.header {
+body > .grid.topbar {
   height: 34px;  
 }
 
