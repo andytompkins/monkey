@@ -17,7 +17,7 @@ block append content
         each item in keys
           tr
             td #{ item.type }
-            td.link(data-variation="very wide", data-content="#{ item.key }") #{ item.fingerprint }
+            td.link.popup.fingerprint(data-variation="very wide", data-content="#{ item.key }") #{ item.fingerprint }
             td #{ item.label }
             td
               form.form-editkey(action="/forms/editkey", method="post", id="editform")
@@ -40,6 +40,15 @@ block append content
               form.form-addkey(action="/forms/addkey", method="post", id="addform")
                 button.ui.button(type="submit", value="Add Key") Add Key
                   i.plus.icon
+
+block append scripts
+  script(type='text/javascript').
+    $(document).ready(function(){
+      $('.popup.fingerprint').popup({
+        position: 'bottom'
+      }); 
+    });
+
         
     
 
