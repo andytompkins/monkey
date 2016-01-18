@@ -13,7 +13,11 @@ body {
   
 }
 
-body > .grid {
+body > .grid.header {
+  height: 34px;  
+}
+
+body > .grid.login {
   height: 100%;
 }
 
