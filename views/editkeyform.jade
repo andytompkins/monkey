@@ -11,5 +11,8 @@ block append content
   div.ui
     form.ui.form.form-editkey(action="/editkey", method="post", id="editkeyform")
       input.ui.input(type="text", name="publickey", value="#{ fullKey }", placeholder="SSH public key")
-      input.ui.input(type="submit", value="Update SSH Key")
+      button.ui.button(type="submit", value="Update Key")
+        i.save.icon
+        | Update Key
+      
     
