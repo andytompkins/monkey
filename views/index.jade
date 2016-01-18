@@ -17,7 +17,7 @@ block append content
         each item in keys
           tr
             td #{ item.type }
-            td.link.popup.fingerprint(data-variation="very wide", data-content="#{ item.key }") #{ item.fingerprint }
+            td.flowing.popup.fingerprint(data-variation="very wide huge", data-content="#{ item.key }") #{ item.fingerprint }
             td #{ item.label }
             td
               form.form-editkey(action="/forms/editkey", method="post", id="editform")
