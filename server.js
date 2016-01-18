@@ -154,10 +154,17 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
+app.use(function(req, res, next) {
+  var u = getUsername(req);
+  if (req.path === '/login' || u) {
+    return next();
+  }
+  res.redirect('/login');
+});
+
 var router = express.Router();
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
-
 
 router.get('/', function(req, res) {
   log.debug('rendering index');

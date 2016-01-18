@@ -7,32 +7,7 @@ html
     link(rel='stylesheet', href='/css/monkey.css')
     block head
   body
-    .content
-      block content
+    block content
     script(type='text/javascript', src='/js/jquery.js')
     script(type='text/javascript', src='/semantic/dist/semantic.min.js')
-    script(type='text/javascript').
-      $(document).ready(function(){
-        $('.ui.form').form({
-          fields: {
-            username: {
-              identifier: 'username',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your unix username'
-                }
-              ]
-            },
-            password: {
-              identifier: 'password',
-              rules: [
-                {
-                  type: 'empty',
-                  prompt: 'Please enter your computed signature'
-                }
-              ]
-            }
-          }
-        }); 
-      });
+    block scripts
