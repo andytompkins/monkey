@@ -67,6 +67,34 @@ var getUsers = function() {
   });
 };
 
+var getKeys = function(username) {
+  audit.info("Reading authorized keys of user " + username);
+  var cmd = 'sudo su - ' + u + ' -c "cat ~/.ssh/authorized_keys"';
+  try {
+    var stdout = exec(cmd);
+  }
+  catch (err) {
+    log.debug("Reading of authorized keys failed");
+    return done(null, false, { message: "Invalid username or password." });
+  }
+  return stdout.toString().split('\n');
+};
+
+var addKey = function(username, key) {
+  audit.info("Adding to " + username + " authorized_keys file, key: " + key);
+  var cmd = 'sudo su - ' + username + ' -c "cat - >>~/.ssh/authorized_keys"';
+  try {
+    exec(cmd, { input: key });
+  }
+  catch (err) {
+    var stdout = err.stdout.toString();        
+    log.debug("Append to authorized_keys failed");
+    log.debug("Output: " + stdout);
+    log.debug("Error message: " + err.message);
+    log.debug("Stack: " + err.stack);  
+  }
+};
+
 passport.use(new CustomStrategy(function(req, done) {
   log.debug("CustomStrategy");
   //var users = fs.readdirSync(home).filter(function(f) {
@@ -96,16 +124,7 @@ passport.use(new CustomStrategy(function(req, done) {
     return done(null, false, { message: "Invalid username or password." });
   }
   
-  audit.info("Reading authorized keys of user " + u);
-  var getKeys = 'sudo su - ' + u + ' -c "cat ~/.ssh/authorized_keys"';
-  try {
-    var stdout = exec(getKeys);
-  }
-  catch (err) {
-    log.debug("Reading of authorized keys failed");
-    return done(null, false, { message: "Invalid username or password." });
-  }
-  var lines = stdout.toString().split('\n');
+  var lines = getKeys(u);
   if (lines.length > 0) {
     for (var i = 0; i < lines.length; i++) {
       fs.writeFileSync(pub, lines[i]);
@@ -146,11 +165,9 @@ passport.use(new CustomStrategy(function(req, done) {
 }));
 
 passport.serializeUser(function(user, done) {
-  //log.debug("serializeUser: " + user);
   done(null, user);
 });
 passport.deserializeUser(function(user, done) {
-  //log.debug("deserializeUser: " + user);
   done(null, user);
 });
 
@@ -178,16 +195,8 @@ router.get('/', function(req, res) {
   if (u) {
   
     log.debug("got username " + u + " from passport");
-    audit.info("Reading authorized keys of user " + u);
-    var getKeys = 'sudo su - ' + u + ' -c "cat ~/.ssh/authorized_keys"';
-    try {
-      var stdout = exec(getKeys);
-    }
-    catch (err) {
-      log.debug("Reading of authorized keys failed");
-      //
-    }
-    var lines = stdout.toString().split('\n');
+    
+    var lines = getKeys(u);
     for (var i = 0; i < lines.length; i++) {
       if (lines[i].trim().length === 0) { continue; }
       
@@ -251,7 +260,11 @@ router.post('/forms/deletekey', function(req, res) {
   res.render('deletekeyform', data);
 });
 
-
+router.post('/addkey', function(req, res) {
+  var u = getUsername(req);
+  addKey(u, req.body.publickey);
+  res.redirect('/');
+});
 
 app.use(router);
 
