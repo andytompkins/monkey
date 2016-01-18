@@ -1,9 +1,19 @@
 extends layout
 
 block append content
-  div.ui.padded.grid.header
+  div.ui.middle.aligned.padded.grid.header
     div.inverted.grey.row
       div.ten.wide.column
       div.two.wide.column
-        p #{ username }
+        div.ui.inline.dropdown
+          div.text #{ username }
+          i.dropdown.icon
+          div.menu
+            if isAdmin
+              div.item
+                a(href='/users') Admin
+            div.item
+              a(href='/logout') Log out
+
+        
 
