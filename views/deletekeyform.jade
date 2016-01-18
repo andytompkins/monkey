@@ -1,12 +1,23 @@
-extends layout
+extends layout-header
 
-block head
-
-block content
-  
-  div.deletekeyform
-    form.form-deletekey(action="/deletekey", method="post", id="deletekeyform")
-      p.confirm Are you sure you want to remove the following SSH key?
-      input#publickey(type="text", name="publickey", readonly)
-      input(type="submit", class="btn btn-primary btn-block btn-large", value="Delete SSH Key")
+block append content
+  div.ui.keyheader
+    h1.ui.center.aligned.header
+      i.privacy.icon
+      | SSH Key Management: Delete Key
+      
+  form.ui.form(action="/deletekey", method="post", id="deletekeyform")
+    div.ui.middle.aligned.center.aligned.grid
+      div.row
+        div.column
+        div.fourteen.wide.column
+          input.ui.input(type="text", name="publickey", readonly)
+        div.column
+      div.row
+        div.column
+        div.two.wide.column
+          button.ui.button(type="submit", value="Delete Key")
+            i.save.icon
+            | Delete Key
+        div.thirteen.wide.column
     

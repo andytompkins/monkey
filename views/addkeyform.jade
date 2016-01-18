@@ -1,11 +1,23 @@
-extends layout
+extends layout-header
 
-block head
-
-block content
+block append content
+  div.ui.keyheader
+    h1.ui.center.aligned.header
+      i.privacy.icon
+      | SSH Key Management: Add Key
   
-  div.addkeyform
-    form.form-addkey(action="/addkey", method="post", id="addkeyform")
-      input#publickey.input-block-level(type="text", name="publickey", placeholder="SSH public key")
-      input(type="submit", class="btn btn-primary btn-block btn-large", value="Add SSH Key")
+  form.ui.form(action="/addkey", method="post", id="addkeyform")
+    div.ui.middle.aligned.center.aligned.grid
+      div.row
+        div.column
+        div.fourteen.wide.column
+          input.ui.input(type="text", name="publickey", placeholder="SSH public key")
+        div.column
+      div.row
+        div.column
+        div.two.wide.column
+          button.ui.button(type="submit", value="Add Key")
+            i.save.icon
+            | Add Key
+        div.thirteen.wide.column
     
