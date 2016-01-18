@@ -8,20 +8,21 @@ block append content
       i.privacy.icon
       | SSH Key Management: Edit Key
   
-  div.ui.editform
-    form.ui.form(action="/editkey", method="post", id="editkeyform")
-      div.ui.middle.aligned.center.aligned.grid
-        div.row
-          div.two.wide.column
-            input.ui.input(type="text", name="type", value="#{ type }", placeholder="Key type")
-          div.nine.wide.column
-            input.ui.input(type="text", name="key", value="#{ key }", placeholder="SSH Key")
-          div.five.wide.column
-            input.ui.input(type="text", name="label", value="#{ label }", placeholder="Label")
-    
-      div.ui  
-        button.ui.button(type="submit", value="Update Key")
-          i.save.icon
-          | Update Key
-      
+  form.ui.form(action="/editkey", method="post", id="editkeyform")
+    div.ui.middle.aligned.center.aligned.grid
+      div.row
+        div.column
+        div.two.wide.column
+          input.ui.input(type="text", name="type", value="#{ type }", placeholder="Key type")
+        div.eight.wide.column
+          input.ui.input(type="text", name="key", value="#{ key }", placeholder="SSH Key")
+        div.four.wide.column
+          input.ui.input(type="text", name="label", value="#{ label }", placeholder="Label")
+        div.column
+      div.row
+        div.column
+        div.column
+          button.ui.button(type="submit", value="Update Key")
+            i.save.icon
+            | Update Key
     
