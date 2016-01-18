@@ -9,7 +9,7 @@ block content
       h2.ui.teal.image.header
         img.image(src='/images/monkey.png')
         div.content Log in to your account
-      form.ui.large.form
+      form.ui.large.form(action="/login", method="post", id="loginform")
         div.ui.stacked.segment
           div.field
             div.ui.left.icon.input
@@ -21,8 +21,10 @@ block content
               input(type="password", name="password", placeholder="Signature")
           div.ui.fluid.large.teal.submit.button Log In
         div.ui.error.message
-      div.ui.message Hello world
-      
+      div.ui.message
+        p Run this command to create a signature, and copy/paste as your password
+        pre echo "ClearCollateral" | openssl pkeyutl -sign -inkey ~/.ssh/id_rsa | base64
+        p Note: If you are not using the default SSH identity you will need to substitute your identity file (private key) for the id_rsa shown above
   hr
   div.loginform
     img.logo(src="/images/monkey.png")
@@ -33,4 +35,29 @@ block content
       input#username.input-block-level(type="text", name="username", placeholder="Unix username")
       input#password.input-block-level(type="password", name="password", placeholder="Signature")
       input(type="submit", class="btn btn-primary btn-block btn-large", value="Log In")
-    
+  hr
+  script(type='text/javascript').
+    $(document).ready(function(){
+      $('.ui.form').form({
+        fields: {
+          username: {
+            identifier: 'username',
+            rules: [
+              {
+                type: 'empty',
+                prompt: 'Please enter your unix username'
+              }
+            ]
+          },
+          password: {
+            identifier: 'password',
+            rules: [
+              {
+                type: 'empty',
+                prompt: 'Please enter your computed signature'
+              }
+            ]
+          }
+        }
+      }); 
+    });
