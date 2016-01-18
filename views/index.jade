@@ -40,11 +40,13 @@ block append content
     tfoot
       tr
         th(colspan="5")
-          div.ui.right.floated
-            form.ui.right.floated.form.form-addkey(action="/forms/addkey", method="post", id="addform")
-              button.ui.button(type="submit", value="Add Key")
-                i.plus.icon
-                | Add Key
+          div.ui.center.aligned.middle.aligned.grid
+            div.ten.wide.column
+            div.two.wide.column
+              form.ui.form.form-addkey(action="/forms/addkey", method="post", id="addform")
+                button.ui.button(type="submit", value="Add Key")
+                  i.plus.icon
+                  | Add Key
 
 block append scripts
   script(type='text/javascript').
