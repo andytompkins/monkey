@@ -154,9 +154,13 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
+var data = {};
 app.use(function(req, res, next) {
+  data = {};
   var u = getUsername(req);
   if (req.path === '/login' || u) {
+    data.username = u;
+    data.isAdmin = isAdmin(u);
     return next();
   }
   res.redirect('/login');
@@ -168,16 +172,9 @@ app.set('views', __dirname + '/views');
 
 router.get('/', function(req, res) {
   log.debug('rendering index');
-  
-  //console.dir(req.user);
-  //console.log("==========");
-  //console.dir(req.session);
-  //var u = req.session.passport.user.username;
-  
-  var u = getUsername(req);
-  
+
+  var u = getUsername(req);  
   var keys = [];
-  
   if (u) {
   
     log.debug("got username " + u + " from passport");
@@ -190,14 +187,11 @@ router.get('/', function(req, res) {
       log.debug("Reading of authorized keys failed");
       //
     }
-    //log.debug("stdout is " + stdout.toString());
     var lines = stdout.toString().split('\n');
-    //console.dir(lines);
     for (var i = 0; i < lines.length; i++) {
       if (lines[i].trim().length === 0) { continue; }
       
       var parts = lines[i].split(/\s/);
-      //console.dir(parts);
       var keyPrint = fingerprint(parts[1]);
       
       keys.push({
@@ -209,13 +203,14 @@ router.get('/', function(req, res) {
     }
     
   }
-  //console.dir(keys);
-	res.render('index', { "keys": keys, "isAdmin": isAdmin(u) });
+  data.keys = keys;
+  res.render('index', data);
+	//res.render('index', { "keys": keys, "isAdmin": isAdmin(u) });
 });
 
 router.get('/login', function(req, res) {
   log.debug('rendering login');
-  res.render('login', {});
+  res.render('login', data);
 });
 
 router.post('/login', passport.authenticate('custom', {
@@ -231,21 +226,22 @@ router.get('/users', function(req, res) {
   if (!admin) {
     return res.redirect('/');
   }
-  var users = getUsers();
-  res.render('users', { "users": users });
+  //var users = getUsers();
+  data.users = getUsers();
+  res.render('users', data);
 });
 
 router.post('/forms/addkey', function(req, res) {
-  res.render('addkeyform', {});
+  res.render('addkeyform', data);
 });
 router.post('/forms/editkey', function(req, res) {
   console.dir(req.body);
-  var fullKey = req.body.type + " " + req.body.key + " " + req.body.label;
-  res.render('editkeyform', { "fullKey": fullKey });
+  data.fullKey = req.body.type + " " + req.body.key + " " + req.body.label;
+  res.render('editkeyform', data);
 });
 router.post('/forms/deletekey', function(req, res) {
-  var fullKey = req.body.type + " " + req.body.key + " " + req.body.label;
-  res.render('deletekeyform', { "fullKey": fullKey });
+  data.fullKey = req.body.type + " " + req.body.key + " " + req.body.label;
+  res.render('deletekeyform', data);
 });
 
 
