@@ -4,6 +4,29 @@ block head
 
 block content
   
+  div.ui.middle.aligned.center.aligned.grid
+    div.column
+      h2.ui.teal.image.header
+        img.image(src='/images/monkey.png')
+        div.content
+          Log in to your account
+      form.ui.large.form
+        div.ui.stacked.segment
+          div.field
+            div.ui.left.icon.input
+              i.user.icon
+              input(type="text", name="username", placeholder="Unix username")
+          div.field
+            div.ui.left.icon.input
+              i.lock.icon
+              input(type="password", name="password", placeholder="Signature")
+          div.ui.fluid.large.teal.submit.button
+            Log In
+        div.ui.error.message
+      div.ui.message
+        Hello world
+      
+  
   div.loginform
     img.logo(src="/images/monkey.png")
     p.help Run this command to create a signature, and copy/paste as your password

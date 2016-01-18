@@ -1,3 +1,4 @@
+/*
 body {
   background-color: transparent !important;
 }
@@ -211,13 +212,16 @@ td,th {
   float: left;
   padding-right: 5px;
 }
+*/
 
+/*
 .tooltip-inner {
     max-width: 350px;
-    /* If max-width does not work, try using width instead */
+    
     width: 350px;
     height: 200px;
     white-space:pre-wrap;
     overflow: wrap;
 }
 
+*/

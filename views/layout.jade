@@ -3,14 +3,14 @@ html
   head
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title monkey
-    link(rel='stylesheet', href='/css/bootstrap.css')
+    link(type='text/css', rel='stylesheet', href='/css/semantic.css')
     link(rel='stylesheet', href='/css/monkey.css')
     block head
   body
     .content
       block content
     script(type='text/javascript', src='/js/jquery.js')
-    script(type='text/javascript', src='/js/bootstrap.js')
+    script(type='text/javascript', src='/js/semantic.js')
     script(type='text/javascript').
       $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip(); 
