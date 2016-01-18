@@ -26,6 +26,7 @@ body > .grid.login {
 }
 
 .keypopup {
+  max-width: 350px;
   word-wrap: break-word;
 }
 
