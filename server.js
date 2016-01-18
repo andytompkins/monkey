@@ -208,6 +208,11 @@ router.get('/', function(req, res) {
 	//res.render('index', { "keys": keys, "isAdmin": isAdmin(u) });
 });
 
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/login');
+});
+
 router.get('/login', function(req, res) {
   log.debug('rendering login');
   res.render('login', data);
