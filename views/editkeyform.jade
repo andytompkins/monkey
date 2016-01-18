@@ -1,11 +1,15 @@
-extends layout
+extends layout-header
 
-block head
+block append head
 
-block content
+block append content
+  div.ui.keyheader
+    h1.ui.center.aligned.header
+      i.privacy.icon
+      | SSH Key Management: Edit Key
   
-  div.editkeyform
-    form.form-editkey(action="/editkey", method="post", id="editkeyform")
-      input#publickey.input-block-level(type="text", name="publickey", value="#{ fullKey }", placeholder="SSH public key")
-      input(type="submit", class="btn btn-primary btn-block btn-large", value="Update SSH Key")
+  div.ui
+    form.ui.form.form-editkey(action="/editkey", method="post", id="editkeyform")
+      input.ui.input(type="text", name="publickey", value="#{ fullKey }", placeholder="SSH public key")
+      input.ui.input(type="submit", value="Update SSH Key")
     
