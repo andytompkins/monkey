@@ -3,7 +3,7 @@ extends layout-header
 block append head
 
 block append content
-  div.ui
+  div.ui.keyheader
     h1.ui.center.aligned.header
       i.privacy.icon
       | SSH Key Management
@@ -26,8 +26,9 @@ block append content
               input(type="hidden", name="type", value="#{ item.type }")
               input(type="hidden", name="key", value="#{ item.key }")
               input(type="hidden", name="label", value="#{ item.label }")
-              button.ui.button(type="submit", value="Edit Key") Edit Key
+              button.ui.button(type="submit", value="Edit Key")
                 i.edit.icon
+                | Edit Key
           td
             form.form-deletekey(action="/forms/deletekey", method="post", id="deleteform")
               input(type="hidden", name="type", value="#{ item.type }")

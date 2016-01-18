@@ -25,6 +25,10 @@ body > .grid.login {
   margin-top: -100px;
 }
 
+.keyheader {
+  padding: 20px;
+}
+
 .keypopup {
   max-width: 350px;
   word-wrap: break-word;
