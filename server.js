@@ -321,6 +321,7 @@ router.post('/addkey', function(req, res) {
 
 router.post('/editkey', function(req, res) {
   var u = getUsername(req);
+  console.dir(req.body);
   var newKey = req.body.type + " " + req.body.key + " " + req.body.label;
   editKey(u, req.body.fullKey, newKey);
   res.redirect('/');
