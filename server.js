@@ -103,7 +103,7 @@ var deleteKey = function(username, key) {
     if (parts[0] === keyParts[0] && parts[1] === keyParts[1] && parts[2] === keyParts[2]) {
       audit.info("Deleting from " + username + " authorized_keys file, key: " + key);
       var n = i + 1;
-      var cmd = 'sudo su - ' + username + ' -c "sed -i -e\"' + n + 'd\" ~/.ssh/authorized_keys"';
+      var cmd = 'sudo su - ' + username + ' -c "sed -i -e\\"' + n + 'd\\" ~/.ssh/authorized_keys"';
       log.debug("cmd is " + cmd);
       try {
         exec(cmd);
@@ -131,7 +131,7 @@ var editKey = function(username, oldKey, newKey) {
       var n = i + 1;
       var escapedKey = newKey.replace(/\//g, "\\/");
       var cmd = 'sudo su - ' + username + ' -c "sed -i -e\\"' + n + 's/.*/' + escapedKey + '/\\" ~/.ssh/authorized_keys"';
-      log.debug("cmd is " + cmd);
+      //log.debug("cmd is " + cmd);
       try {
         exec(cmd);
       }
