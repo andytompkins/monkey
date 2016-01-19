@@ -69,7 +69,7 @@ var getUsers = function() {
 
 var getKeys = function(username) {
   audit.info("Reading authorized keys of user " + username);
-  var cmd = 'sudo su - ' + u + ' -c "cat ~/.ssh/authorized_keys"';
+  var cmd = 'sudo su - ' + username + ' -c "cat ~/.ssh/authorized_keys"';
   try {
     var stdout = exec(cmd);
   }
