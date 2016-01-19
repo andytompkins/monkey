@@ -7,6 +7,7 @@ block append content
       | SSH Key Management: Edit Key
   
   form.ui.form(action="/editkey", method="post", id="editkeyform")
+    input(type="hidden", name="publickey", value="#{ fullKey }")
     div.ui.middle.aligned.center.aligned.grid
       div.row
         div.column

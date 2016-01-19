@@ -95,6 +95,59 @@ var addKey = function(username, key) {
   }
 };
 
+var deleteKey = function(username, key) {
+  var keyParts = key.split(/\s/);
+  var lines = getKeys(username);
+  for (var i = 0; i < lines.length; i++) {
+    var parts = lines[i].split(/\s/);
+    if (parts[0] === keyParts[0] && parts[1] === keyParts[1] && parts[2] === keyParts[2]) {
+      audit.info("Deleting from " + username + " authorized_keys file, key: " + key);
+      var n = i + 1;
+      var cmd = 'sudo su - ' + username + ' -c "sed -i -e\"' + n + 'd\" ~/.ssh/authorized_keys"';
+      log.debug("cmd is " + cmd);
+      try {
+        exec(cmd);
+      }
+      catch (err) {
+        var stdout = err.stdout.toString();        
+        log.debug("Delete from authorized_keys failed");
+        log.debug("Output: " + stdout);
+        log.debug("Error message: " + err.message);
+        log.debug("Stack: " + err.stack);  
+      }
+      return;
+    }
+  }
+  
+};
+
+var editKey = function(username, oldKey, newKey) {
+  var keyParts = oldKey.split(/\s/);
+  var lines = getKeys(username);
+  for (var i = 0; i < lines.length; i++) {
+    var parts = lines[i].split(/\s/);
+    if (parts[0] === keyParts[0] && parts[1] === keyParts[1] && parts[2] === keyParts[2]) {
+      audit.info("Editing " + username + " authorized_keys file, replacing key: " + oldKey + " with new key: " + newKey);
+      var n = i + 1;
+      var cmd = 'sudo su - ' + username + ' -c "sed -i -e\"' + n + 's/.*/' + newKey + '/\" ~/.ssh/authorized_keys"';
+      log.debug("cmd is " + cmd);
+      try {
+        exec(cmd);
+      }
+      catch (err) {
+        var stdout = err.stdout.toString();        
+        log.debug("Delete from authorized_keys failed");
+        log.debug("Output: " + stdout);
+        log.debug("Error message: " + err.message);
+        log.debug("Stack: " + err.stack);  
+      }
+      return;
+    }
+  }
+  
+  
+};
+
 passport.use(new CustomStrategy(function(req, done) {
   log.debug("CustomStrategy");
   //var users = fs.readdirSync(home).filter(function(f) {
@@ -265,6 +318,13 @@ router.post('/addkey', function(req, res) {
   addKey(u, req.body.publickey);
   res.redirect('/');
 });
+
+router.post('/editkey', function(req, res) {
+  var u = getUsername(req);
+  var newKey = req.body.type + " " + req.body.key + " " + req.body.label;
+  editKey(u, req.body.fullKey, newKey);
+  res.redirect('/');
+})
 
 app.use(router);
 
