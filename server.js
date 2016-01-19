@@ -129,8 +129,8 @@ var editKey = function(username, oldKey, newKey) {
     if (parts[0] === keyParts[0] && parts[1] === keyParts[1] && parts[2] === keyParts[2]) {
       audit.info("Editing " + username + " authorized_keys file, replacing key: " + oldKey + " with new key: " + newKey);
       var n = i + 1;
-      var escapedKey = newKey.replace(/\//g, "\/");
-      var cmd = 'sudo su - ' + username + ' -c "sed -i -e\"' + n + 's/.*/' + escapedKey + '/\" ~/.ssh/authorized_keys"';
+      var escapedKey = newKey.replace(/\//g, "\\/");
+      var cmd = 'sudo su - ' + username + ' -c "sed -i -e\\"' + n + 's/.*/' + escapedKey + '/\\" ~/.ssh/authorized_keys"';
       log.debug("cmd is " + cmd);
       try {
         exec(cmd);
