@@ -322,11 +322,17 @@ router.post('/addkey', function(req, res) {
 
 router.post('/editkey', function(req, res) {
   var u = getUsername(req);
-  console.dir(req.body);
   var newKey = req.body.type + " " + req.body.key + " " + req.body.label;
   editKey(u, req.body.publickey, newKey);
   res.redirect('/');
-})
+});
+
+router.post('/deletekey', function(req, res) {
+  var u = getUsername(req);
+  deleteKey(u, req.body.publickey);
+  res.redirect('/');
+});
+
 
 app.use(router);
 
