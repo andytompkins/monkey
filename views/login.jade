@@ -27,7 +27,7 @@ block append content
           pre echo "ClearCollateral" | openssl pkeyutl -sign -inkey ~/.ssh/id_rsa | base64
           p Note: If you are not using the default SSH identity you will need to substitute your identity file (private key) for the id_rsa shown above
 
-block scripts
+block append scripts
   script(type='text/javascript').
     $(document).ready(function(){
       $('.ui.form').form({
