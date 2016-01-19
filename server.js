@@ -67,6 +67,27 @@ var getUsers = function() {
   });
 };
 
+var isKeyType = function(type) {
+  var validKeyTypes = [ 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384', 'ecdsa-sha2-nistp521', 'ssh-dss', 'ssh-rsa' ];
+  return _.includes(validKeyTypes, type);
+};
+
+var parseKey = function(fullKey) {
+  var parts = fullKey.match(/\w+|"[^"]*"/g);
+  var parsed = {};
+  var item = parts.unshift();
+  if (isKeyType(item)) {
+    parsed.options = "";
+    parsed.type = item;
+  } else {
+    parsed.options = item;
+    parsed.type = parts.unshift();
+  }
+  parsed.key = parts.unshift();
+  parsed.label = parts.join(" ");
+  return parsed;
+};
+
 var getKeys = function(username) {
   audit.info("Reading authorized keys of user " + username);
   var cmd = 'sudo su - ' + username + ' -c "cat ~/.ssh/authorized_keys"';
@@ -77,7 +98,12 @@ var getKeys = function(username) {
     log.debug("Reading of authorized keys failed");
     return done(null, false, { message: "Invalid username or password." });
   }
-  return stdout.toString().split('\n');
+  return _.filter(stdout.toString().split('\n'), function(line) {
+    if (line.trim().length === 0) { return false; }
+    var comment = /\s*#.*/;
+    if (comment.test(line)) { return false; }
+    return true;
+  });
 };
 
 var addKey = function(username, key) {
@@ -150,10 +176,6 @@ var editKey = function(username, oldKey, newKey) {
 };
 
 passport.use(new CustomStrategy(function(req, done) {
-  log.debug("CustomStrategy");
-  //var users = fs.readdirSync(home).filter(function(f) {
-  //  return fs.statSync(path.join(home, f)).isDirectory();
-  //});
   var users = getUsers();
   var u = _.find(users, function(user) {
     return user === req.body.username;
@@ -252,7 +274,9 @@ router.get('/', function(req, res) {
     
     var lines = getKeys(u);
     for (var i = 0; i < lines.length; i++) {
-      if (lines[i].trim().length === 0) { continue; }
+      
+      var p = parseKey(lines[i]);
+      console.dir(p);
       
       var parts = lines[i].split(/\s/);
       var keyPrint = fingerprint(parts[1]);
@@ -268,7 +292,6 @@ router.get('/', function(req, res) {
   }
   data.keys = keys;
   res.render('index', data);
-	//res.render('index', { "keys": keys, "isAdmin": isAdmin(u) });
 });
 
 router.get('/logout', function(req, res) {
@@ -294,7 +317,6 @@ router.get('/users', function(req, res) {
   if (!admin) {
     return res.redirect('/');
   }
-  //var users = getUsers();
   data.users = getUsers();
   res.render('users', data);
 });
